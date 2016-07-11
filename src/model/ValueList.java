@@ -32,6 +32,22 @@ public class ValueList
 	}
 	
 	/**
+	 * 入力と同様の値を持つリストの要素を使用禁止に変更
+	 * @param i_value 入力値
+	 */
+	public void changeUnavailableFromValue( MyValue i_value )
+	{
+		for ( int i = 0; i < this.m_list.size(); ++i )
+		{
+			if ( i_value.equals(this.m_list.get(i)) )
+			{
+				this.m_list.get(i).unavailable();
+				break;
+			}
+		}
+	}
+	
+	/**
 	 * 値追加
 	 * @param i_value 値
 	 */

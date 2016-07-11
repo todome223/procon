@@ -72,4 +72,13 @@ public class MyValue
 	{
 		return this.m_unavailable;
 	}
+	
+	public boolean equals( MyValue i_value )
+	{
+		if ( this.m_value != i_value.m_value )
+		{
+			return false;
+		}
+		return true;
+	}
 }

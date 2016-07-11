@@ -110,6 +110,23 @@ public class GameManager {
 	}
 	
 	/**
+	 * 確認対象添え字番号移動
+	 */
+	public void checkNextSuffix()
+	{
+		++m_checkNumber;
+	}
+
+	/**
+	 * 入力と同様の値を持つリストの要素を使用禁止に変更
+	 * @param i_value 入力値
+	 */
+	public void changeUnavailableFromValue( MyValue i_value )
+	{
+		m_valueList.changeUnavailableFromValue(i_value);
+	}
+	
+	/**
 	 * プログラミングコンテスト用回答数
 	 * @return 6 回答数
 	 */
