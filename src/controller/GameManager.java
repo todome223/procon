@@ -279,6 +279,13 @@ public class GameManager {
 		this.m_valueList.changeUnavailableFromValue(l_check);
 	}
 	
+	public void gameContinue()
+	{
+		// 変化なし
+		MyValue l_check = this.m_anserList.get(this.m_anserNumber);
+		this.m_valueList.changeUnavailableFromValue(l_check);
+	}
+	
 	/**
 	 * プログラミングコンテスト用回答数
 	 * @return 6 回答数

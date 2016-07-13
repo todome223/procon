@@ -95,6 +95,7 @@ public class HitAndBlow {
 					}
 					else
 					{
+						//l_manager.gameContinue();
 						// •Ï‰»‚È‚µ
 					}
 				}
