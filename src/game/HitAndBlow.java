@@ -85,11 +85,11 @@ public class HitAndBlow {
 							break;
 						case 1:
 							// ブロウ数増加
-							l_manager.blowPlus();
+							//l_manager.blowPlus();
 							break;
 						case -1:
 							// ブロウ数減少
-							l_manager.blowMinus();
+							//l_manager.blowMinus();
 							break;
 						}
 					}
