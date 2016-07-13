@@ -1,8 +1,11 @@
 package game;
 
+import java.io.IOException;
+
 import model.MySituation;
 import model.ValueList;
 import controller.GameManager;
+import controller.GameReader;
 
 /**
  * ゲームクラス
@@ -14,6 +17,21 @@ public class HitAndBlow {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		int mode = 2;
+		
+		switch(mode)
+		{
+		case 1:
+			plan_a();
+			break;
+		case 2:
+			plan_b();
+			break;
+		}
+	}
+	
+	private static void plan_a()
+	{
 		// ゲーム管理インスタンスの宣言
 		GameManager l_manager = new GameManager();
 		// 初期化メソッド呼び出し
@@ -42,20 +60,6 @@ public class HitAndBlow {
 			// 変化があったか否か
 			if ( !l_befSituation.equals( l_manager.getSituation() ) )
 			{
-				if ( l_befSituation.equalsHit( l_manager.getSituation() ) )
-				{ // ヒット数に変化あり
-					// ヒット数が増えている場合
-					// ヒット数が減っている場合
-					// 確認対象を一桁右に移動
-					l_manager.checkNextSuffix();
-				}
-				else if ( l_befSituation.equalsBlow( l_manager.getSituation() ) )
-				{ // ブロウ数に変化あり
-					// ブロウ数が増えている場合
-					// 前回の同じ添え字番号の文字を使用禁止に設定
-					// ブロウ数が減っている場合
-					// 今回の同じ添え字番号の文字を使用禁止に設定
-				}	
 			}
 			else
 			{ // 変化なし
@@ -69,4 +73,87 @@ public class HitAndBlow {
 		}	
 	}
 
+	private static void plan_b()
+	{
+		// ゲーム開始に伴う初回判定フラグ
+		boolean l_isFirstTime = true;
+		// ゲーム管理インスタンスの宣言
+		GameManager l_manager = new GameManager();
+		// 初期化メソッド呼び出し
+		l_manager.initialize();
+		// 初期入力待ち
+		GameReader.readLine();
+		// 初期表示
+		System.out.println(l_manager.getAnserList());
+		// ループ
+		while( true )
+		{
+			// 入力待ち
+			String l_input = GameReader.readLine();
+			// 入力を下にゲーム状況更新
+			l_manager.updateGameSituation( l_input );
+			
+			// ゲーム状況が終了条件を満たした場合終了
+			if ( l_manager.isWin() )
+			{
+				// 終了条件達成
+				break;
+			}
+			else
+			{
+				// 終了条件未達成
+				if ( l_isFirstTime )
+				{
+					// 初回はゲーム状況変化に伴うHit箇所特定が不可能なため、番号変更を行って終了
+					l_isFirstTime = false;
+				}
+				else
+				{
+					// 状況内容を確認
+					if ( l_manager.situationIsChanged() )
+					{
+						
+						//System.out.println("hc : " + l_manager.hitIsChanged() );
+						// 変化内容を確認
+						switch( l_manager.hitIsChanged() )
+						{
+						case 0:
+							// ヒット数変化なし
+							break;
+						case 1:
+							// ヒット数増加
+							l_manager.hitPlus();
+							break;
+						case -1:
+							// ヒット数減少
+							l_manager.hitMinus();
+							break;
+						}
+						switch( l_manager.blowIsChanged() )
+						{
+						case 0:
+							// ブロウ数変化なし
+							break;
+						case 1:
+							// ブロウ数増加
+							break;
+						case -1:
+							// ブロウ数減少
+							break;
+						}
+					}
+					else
+					{
+						// 変化なし
+					}
+				}
+				// 回答更新
+				l_manager.changeNumber();
+				System.out.println( l_manager.getAnserList() );
+			}
+			
+		}
+		
+		// 一桁目の文字の変更メソッド
+	}
 }

@@ -84,4 +84,50 @@ public class ValueList
 		this.m_list.remove(0);
 		this.m_list.add(l_temp);
 	}
+	
+	public void change( int i_index, MyValue i_value )
+	{
+		this.m_list.set(i_index, i_value);
+	}
+	
+	public MyValue get( int i_index )
+	{
+		if ( this.m_list.size() > i_index )
+		{
+			return this.m_list.get(i_index);
+		}
+		return null;
+	}
+	
+	public boolean hasValue( MyValue i_value )
+	{
+		for ( int i = 0; i < this.m_list.size(); ++i )
+		{
+			if ( i_value.equals( this.m_list.get(i) ) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public String toString()
+	{
+		String l_rString = new String("");
+		for( int i = 0; i < this.m_list.size(); ++i )
+		{
+			l_rString += this.m_list.get(i).toString();
+		}
+		return l_rString;
+	}
+	
+	public ValueList clone()
+	{
+		ValueList l_rList = new ValueList();
+		for ( int i = 0; i < this.m_list.size(); ++i )
+		{
+			l_rList.add( this.m_list.get(i).clone() );
+		}
+		return l_rList;
+	}
 }

@@ -42,11 +42,11 @@ public class MySituation {
 	public boolean equals( MySituation i_situation )
 	{
 		boolean check = true;
-		if ( !this.equalsHit(i_situation) )
+		if ( this.m_hit != i_situation.m_hit )
 		{
 			check = false;
 		}
-		else if ( !this.equalsBlow(i_situation) )
+		else if ( this.m_blow != i_situation.m_blow )
 		{
 			check = false;
 		}
@@ -61,32 +61,28 @@ public class MySituation {
 		return check;
 	}
 	
-	/**
-	 * ヒット数同値確認
-	 * @param i_situation 確認先インスタンス
-	 * @return check 確認結果
-	 */
-	public boolean equalsHit( MySituation i_situation ){
-		boolean check = true;
-		if ( this.m_hit != i_situation.m_hit )
+	public int equalsHit( MySituation i_situation ){
+		if ( this.m_hit < i_situation.m_hit )
 		{
-			check = false;
+			return -1;
 		}
-		return check;
+		else if ( this.m_hit > i_situation.m_hit )
+		{
+			return 1;
+		}
+		return 0;
 	}
-	
-	/**
-	 * ブロウ数同値確認
-	 * @param i_situation 確認先インスタンス
-	 * @return check 確認結果
-	 */
-	public boolean equalsBlow( MySituation i_situation ){
-		boolean check = true;
-		if ( this.m_blow != i_situation.m_blow )
+
+	public int equalsBlow( MySituation i_situation ){
+		if ( this.m_blow < i_situation.m_blow )
 		{
-			check = false;
+			return -1;
 		}
-		return check;
+		else if ( this.m_blow > i_situation.m_blow )
+		{
+			return 1;
+		}
+		return 0;
 	}
 	
 	/**
@@ -112,5 +108,22 @@ public class MySituation {
 		this.m_hit = Integer.parseInt(l_result[0]);
 		this.m_blow = Integer.parseInt(l_result[1]);
 		this.m_noHit = this.m_size - ( this.m_hit + this.m_blow );
+	}
+	
+	public MySituation clone()
+	{
+		MySituation r_sit = new MySituation(0);
+		r_sit.m_blow = this.m_blow;
+		r_sit.m_hit = this.m_hit;
+		r_sit.m_noHit = this.m_noHit;
+		r_sit.m_size = this.m_size;
+		return r_sit;
+	}
+	
+	public String toString()
+	{
+		String r_st = new String("");
+		r_st = this.m_hit + " " + this.m_blow;
+		return r_st;
 	}
 }

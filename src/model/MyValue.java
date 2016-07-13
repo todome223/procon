@@ -81,4 +81,17 @@ public class MyValue
 		}
 		return true;
 	}
+	
+	public String toString()
+	{
+		return this.m_value;
+	}
+	
+	public MyValue clone()
+	{
+		MyValue l_rValue = new MyValue( this.m_value );
+		l_rValue.m_used = this.m_used;
+		l_rValue.m_unavailable = this.m_unavailable;
+		return l_rValue;
+	}
 }
