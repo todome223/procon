@@ -15,9 +15,13 @@ public class GameManager {
 	 */
 	ValueList m_anserList;
 	/**
-	 * 回答確認用リスト
+	 * 回答確認用リスト1
 	 */
 	ValueList m_anserTempList;
+	/**
+	 * 回答確認用リスト2
+	 */
+	ValueList m_anserTempList2;
 	/**
 	 * ゲーム状況
 	 */
@@ -56,29 +60,17 @@ public class GameManager {
 	{
 		// 値一覧リストの取得
 		this.m_valueList = ValueListFactory.getInstance().create();
+		// 回答リストの取得
+		this.m_anserList = ValueListFactory.getInstance().createFirstAnserList();
 		// 回答数を引数にゲーム状況を初期化
 		this.m_situation = new MySituation( anserNum() );
 		this.m_beforeSituation = new MySituation( anserNum() );
-		// 値一覧リストから回答リストを作成
-		createFirstAnserList();
 		// 確認対象添え字番号を0番目に
 		m_checkNumber = 0;
 		
 		m_anserNumber = 0;
 		
 		m_changeMode = 1;
-	}
-	
-	/**
-	 * 初回回答リストの作成
-	 * 初期値は添え字0から必要回答数までのサイズ
-	 */
-	private void createFirstAnserList()
-	{
-		for ( int i = 0; i < anserNum(); ++i )
-		{
-			this.m_anserList.add( this.m_valueList.useValue(i) );
-		}
 	}
 	
 	/**
@@ -162,11 +154,22 @@ public class GameManager {
 		case 1:
 			// 未満なら、回答リストに存在しない値と交換
 			this.m_anserTempList = this.m_anserList.clone();
-			while (this.m_anserList.hasValue(this.m_valueList.get(this.m_checkNumber)))
+			while ( this.m_anserList.hasValue(this.m_valueList.get(this.m_checkNumber)) ||
+					this.m_valueList.get(this.m_checkNumber).isUnavailable() )
 			{
 				++this.m_checkNumber;
+				if ( this.m_checkNumber >= this.m_valueList.size() ){
+					break;
+				}
 			}
-			this.m_anserList.change(this.m_anserNumber, this.m_valueList.get(this.m_checkNumber));
+			if ( this.m_checkNumber >= this.m_valueList.size() )
+			{
+				this.m_anserList = this.m_anserTempList.clone();
+			}
+			else
+			{
+				this.m_anserList.change(this.m_anserNumber, this.m_valueList.get(this.m_checkNumber));
+			}
 			++this.m_checkNumber;
 			if ( this.m_checkNumber >= this.m_valueList.size() )
 			{
@@ -174,19 +177,23 @@ public class GameManager {
 				this.m_checkNumber = this.m_anserNumber;
 				this.m_anserTempList = this.m_anserList.clone();
 			}
+			else
+			{
+				// 数列は残っているが、全て使用中または使用禁止
+			}
 			break;
 		case 2:
 			// 最後尾に至っているなら、回答リスト内で値交換
 			this.m_anserList = this.m_anserTempList.clone();
 			++this.m_checkNumber;
 			MyValue temp = this.m_anserList.get(this.m_anserNumber);
-			this.m_anserList.change(this.m_anserNumber, this.m_valueList.get(this.m_checkNumber));
+			this.m_anserList.change(this.m_anserNumber, this.m_anserTempList.clone().get(this.m_checkNumber));
 			this.m_anserList.change(this.m_checkNumber, temp);
 			break;
 		case 3:
 			// 回答リスト内の値交換時に、HIT数の増加があった場合、使用禁止値と交換
-			this.m_anserTempList = this.m_anserList.clone();
-			this.m_anserTempList.change(this.m_anserNumber, this.getUnavailable());
+			this.m_anserTempList2 = this.m_anserList.clone();
+			this.m_anserTempList2.change(this.m_anserNumber, this.getUnavailable());
 			break;
 		}
 	}
@@ -257,6 +264,19 @@ public class GameManager {
 		++this.m_anserNumber;
 		this.m_checkNumber = 0;
 		this.m_changeMode = 1;
+	}
+	
+	public void blowPlus()
+	{
+		// ブロウ数増加
+		
+	}
+	
+	public void blowMinus()
+	{
+		// ブロウ数減少
+		MyValue l_check = this.m_anserList.get(this.m_anserNumber);
+		this.m_valueList.changeUnavailableFromValue(l_check);
 	}
 	
 	/**

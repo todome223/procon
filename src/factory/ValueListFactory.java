@@ -36,12 +36,6 @@ public class ValueListFactory {
 	private ValueList createProgramingContest()
 	{
 		ValueList l_valueList = new ValueList();
-		l_valueList.add(new MyValue("0"));
-		l_valueList.add(new MyValue("1"));
-		l_valueList.add(new MyValue("2"));
-		l_valueList.add(new MyValue("3"));
-		l_valueList.add(new MyValue("4"));
-		l_valueList.add(new MyValue("5"));
 		l_valueList.add(new MyValue("6"));
 		l_valueList.add(new MyValue("7"));
 		l_valueList.add(new MyValue("8"));
@@ -52,6 +46,24 @@ public class ValueListFactory {
 		l_valueList.add(new MyValue("D"));
 		l_valueList.add(new MyValue("E"));
 		l_valueList.add(new MyValue("F"));
+		l_valueList.add(new MyValue("0"));
+		l_valueList.add(new MyValue("1"));
+		l_valueList.add(new MyValue("2"));
+		l_valueList.add(new MyValue("3"));
+		l_valueList.add(new MyValue("4"));
+		l_valueList.add(new MyValue("5"));
+		return l_valueList;
+	}
+	
+	public ValueList createFirstAnserList()
+	{
+		ValueList l_valueList = new ValueList();
+		l_valueList.add(new MyValue("0"));
+		l_valueList.add(new MyValue("1"));
+		l_valueList.add(new MyValue("2"));
+		l_valueList.add(new MyValue("3"));
+		l_valueList.add(new MyValue("4"));
+		l_valueList.add(new MyValue("5"));
 		return l_valueList;
 	}
 	
