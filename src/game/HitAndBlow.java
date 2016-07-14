@@ -96,10 +96,14 @@ public class HitAndBlow {
 				}
 				// 回答更新
 				l_manager.changeNumber();
+				// 回答表示
 				GameWriter.writeLine( l_manager.printAnserList() );
 			}
 			
 		}
+		// 更新回数表示
+		// ToDo あくまでも確認の都合上カウントが欲しいだけで、ゲーム規定に反するためのこのメソッド呼び出しは消すこと！
+		// this call must be deleted !!!
 		GameWriter.outputCount();
 	}
 }
