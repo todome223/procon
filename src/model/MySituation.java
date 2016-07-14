@@ -21,7 +21,7 @@ public class MySituation {
 	 * 値総種
 	 */
 	int m_size;
-	
+
 	/**
 	 * コンストラクタ
 	 * @param i_size 値総種
@@ -33,7 +33,7 @@ public class MySituation {
 		this.m_blow = 0;
 		this.m_noHit = this.m_size;
 	}
-	
+
 	/**
 	 * 同値確認
 	 * @param i_situation 確認先インスタンス
@@ -60,7 +60,7 @@ public class MySituation {
 		}
 		return check;
 	}
-	
+
 	public int equalsHit( MySituation i_situation ){
 		if ( this.m_hit < i_situation.m_hit )
 		{
@@ -84,7 +84,7 @@ public class MySituation {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * 勝利確認
 	 * @return 勝利確認結果
@@ -97,7 +97,7 @@ public class MySituation {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * ゲーム状況変化に伴うメンバの更新
 	 * @param i_situation ゲーム状況
@@ -109,7 +109,7 @@ public class MySituation {
 		this.m_blow = Integer.parseInt(l_result[1]);
 		this.m_noHit = this.m_size - ( this.m_hit + this.m_blow );
 	}
-	
+
 	public MySituation clone()
 	{
 		MySituation r_sit = new MySituation(0);
@@ -119,7 +119,7 @@ public class MySituation {
 		r_sit.m_size = this.m_size;
 		return r_sit;
 	}
-	
+
 	public String toString()
 	{
 		String r_st = new String("");

@@ -1,9 +1,9 @@
 package controller;
 
-import factory.ValueListFactory;
 import model.MySituation;
 import model.MyValue;
 import model.ValueList;
+import factory.ValueListFactory;
 
 public class GameManager {
 	/**
@@ -13,15 +13,15 @@ public class GameManager {
 	/**
 	 * 回答リスト
 	 */
-	ValueList m_anserList;
+	ValueList m_answerList;
 	/**
 	 * 回答確認用リスト1
 	 */
-	ValueList m_anserTempList;
+	ValueList m_answerTempList;
 	/**
 	 * 回答確認用リスト2
 	 */
-	ValueList m_anserTempList2;
+	ValueList m_answerTempList2;
 	/**
 	 * 確認済みリスト
 	 */
@@ -41,23 +41,23 @@ public class GameManager {
 	/**
 	 * 回答リスト変更対象番号
 	 */
-	int m_anserNumber;
+	int m_answerNumber;
 	/**
 	 * 交換方法
 	 */
 	int m_changeMode;
-	
+
 	/**
 	 * コンストラクタ
 	 */
 	public GameManager()
 	{
 		this.m_valueList = new ValueList();
-		this.m_anserList = new ValueList();
-		this.m_anserTempList = new ValueList();
+		this.m_answerList = new ValueList();
+		this.m_answerTempList = new ValueList();
 		this.m_checkedList = new ValueList();
 	}
-	
+
 	/**
 	 * 初期化
 	 */
@@ -66,18 +66,18 @@ public class GameManager {
 		// 値一覧リストの取得
 		this.m_valueList = ValueListFactory.getInstance().create();
 		// 回答リストの取得
-		this.m_anserList = ValueListFactory.getInstance().createFirstAnserList();
+		this.m_answerList = ValueListFactory.getInstance().createFirstAnswerList();
 		// 回答数を引数にゲーム状況を初期化
-		this.m_situation = new MySituation( anserNum() );
-		this.m_beforeSituation = new MySituation( anserNum() );
+		this.m_situation = new MySituation( answerNum() );
+		this.m_beforeSituation = new MySituation( answerNum() );
 		// 確認対象添え字番号を0番目に
 		m_checkNumber = 0;
-		
-		m_anserNumber = 0;
-		
+
+		m_answerNumber = 0;
+
 		m_changeMode = 1;
 	}
-	
+
 	/**
 	 * ゲーム状況更新
 	 * @param i_inputList 入力
@@ -87,21 +87,21 @@ public class GameManager {
 		this.m_beforeSituation = this.m_situation.clone();
 		this.m_situation.changeSituation(i_inputList);
 	}
-	
+
 	/**
-	 * 回答リスト取得 
-	 * @return m_anserList 回答リスト
+	 * 回答リスト取得
+	 * @return m_answerList 回答リスト
 	 */
-	public ValueList getAnserList()
+	public ValueList getAnswerList()
 	{
-		return this.m_anserList;
+		return this.m_answerList;
 	}
-	
-	public String printAnserList()
+
+	public String printAnswerList()
 	{
-		return this.m_anserList.toString();
+		return this.m_answerList.toString();
 	}
-	
+
 	/**
 	 * ゲーム状況取得
 	 * @return m_situation ゲーム状況
@@ -110,7 +110,7 @@ public class GameManager {
 	{
 		return this.m_situation;
 	}
-	
+
 	/**
 	 * 勝利確認
 	 * @return 勝利確認結果
@@ -128,21 +128,21 @@ public class GameManager {
 	{
 		m_valueList.changeUnavailableFromValue(i_value);
 	}
-	
+
 	/**
 	 * 回答リスト更新
 	 */
 	public void changeNumber()
-	{	
+	{
 		// 確認番号がすでに確認リストの最後尾に至っているか
 		switch( this.m_changeMode )
 		{
 		case 1:
 			// 未満なら、回答リストに存在しない値と交換
-			this.m_anserTempList = this.m_anserList.clone();
+			this.m_answerTempList = this.m_answerList.clone();
 			// whileカウント数がm_valueListの大きさを超えるかの確認カウンタ
 			int l_count = 0;
-			while ( this.m_anserList.hasValue(this.m_valueList.get(this.m_checkNumber)) ||
+			while ( this.m_answerList.hasValue(this.m_valueList.get(this.m_checkNumber)) ||
 					this.m_valueList.get(this.m_checkNumber).isUnavailable() )
 			{
 				++l_count;
@@ -155,31 +155,31 @@ public class GameManager {
 			if ( this.m_checkedList.hasValue( l_temp ) )
 			{
 				m_changeMode = 2;
-				this.m_checkNumber = this.m_anserNumber;
-				this.m_anserTempList = this.m_anserList.clone();
+				this.m_checkNumber = this.m_answerNumber;
+				this.m_answerTempList = this.m_answerList.clone();
 			}
 			else
 			{
-				this.m_anserList.change(this.m_anserNumber, l_temp);
+				this.m_answerList.change(this.m_answerNumber, l_temp);
 				this.m_checkedList.add( l_temp );
 			}
 			break;
 		case 2:
 			// 最後尾に至っているなら、回答リスト内で値交換
-			this.m_anserList = this.m_anserTempList.clone();
+			this.m_answerList = this.m_answerTempList.clone();
 			++this.m_checkNumber;
-			MyValue temp = this.m_anserList.get(this.m_anserNumber);
-			this.m_anserList.change(this.m_anserNumber, this.m_anserTempList.clone().get(this.m_checkNumber));
-			this.m_anserList.change(this.m_checkNumber, temp);
+			MyValue temp = this.m_answerList.get(this.m_answerNumber);
+			this.m_answerList.change(this.m_answerNumber, this.m_answerTempList.clone().get(this.m_checkNumber));
+			this.m_answerList.change(this.m_checkNumber, temp);
 			break;
 		case 3:
 			// 回答リスト内の値交換時に、HIT数の増加があった場合、使用禁止値と交換
-			this.m_anserTempList2 = this.m_anserList.clone();
-			this.m_anserTempList2.change(this.m_anserNumber, this.getUnavailable());
+			this.m_answerTempList2 = this.m_answerList.clone();
+			this.m_answerTempList2.change(this.m_answerNumber, this.getUnavailable());
 			break;
 		}
 	}
-	
+
 	/**
 	 * 使用禁止値取得
 	 * @return 使用禁止値
@@ -195,7 +195,7 @@ public class GameManager {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * ゲーム状況変化有無確認
 	 * @return true 変化あり
@@ -230,7 +230,7 @@ public class GameManager {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * ブロウ数増減確認
 	 * @return 1 ブロウ数が前回より増加
@@ -251,55 +251,55 @@ public class GameManager {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * ヒット数増加時の処理
 	 */
 	public void hitPlus()
 	{
-		++this.m_anserNumber;
+		++this.m_answerNumber;
 		this.m_checkNumber = 0;
 		this.m_changeMode = 1;
 		this.m_valueList.refresh();
 		this.m_checkedList.clear();
 	}
-	
+
 	/**
 	 * ヒット数減少時の処理
 	 */
 	public void hitMinus()
 	{
-		this.m_anserList = this.m_anserTempList.clone();
-		++this.m_anserNumber;
+		this.m_answerList = this.m_answerTempList.clone();
+		++this.m_answerNumber;
 		this.m_checkNumber = 0;
 		this.m_changeMode = 1;
 		this.m_situation = this.m_beforeSituation.clone();
 		this.m_valueList.refresh();
 		this.m_checkedList.clear();
 	}
-	
+
 	/**
 	 * ブロウ数増加時の処理
 	 */
 	public void blowPlus()
 	{
 	}
-	
+
 	/**
 	 * ブロウ数減少時の処理
 	 */
 	public void blowMinus()
 	{
-		MyValue l_check = this.m_anserList.get(this.m_anserNumber);
+		MyValue l_check = this.m_answerList.get(this.m_answerNumber);
 		this.m_valueList.changeUnavailableFromValue(l_check);
 		this.m_situation = this.m_beforeSituation.clone();
 	}
-	
+
 	/**
 	 * プログラミングコンテスト用回答数
 	 * @return 6 回答数
 	 */
-	private final int anserNum()
+	private final int answerNum()
 	{
 		return 6;
 	}

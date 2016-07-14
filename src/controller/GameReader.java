@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 public class GameReader {
 	public static String readLine()
 	{
-		
+
 		BufferedReader l_readStream = new BufferedReader( new InputStreamReader( System.in ) );
 		String l_line = new String("");
 		try

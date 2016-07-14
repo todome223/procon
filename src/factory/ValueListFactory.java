@@ -12,7 +12,7 @@ public class ValueListFactory {
 	 * シングルトンインスタンス
 	 */
 	private static ValueListFactory m_single = new ValueListFactory();
-	
+
 	/**
 	 * コンストラクタ
 	 * プライベート宣言し明示的に不使用
@@ -20,7 +20,7 @@ public class ValueListFactory {
 	private ValueListFactory()
 	{
 	}
-	
+
 	/**
 	 * オブジェクト生成
 	 * @return
@@ -54,8 +54,8 @@ public class ValueListFactory {
 		l_valueList.add(new MyValue("5"));
 		return l_valueList;
 	}
-	
-	public ValueList createFirstAnserList()
+
+	public ValueList createFirstAnswerList()
 	{
 		ValueList l_valueList = new ValueList();
 		l_valueList.add(new MyValue("0"));
@@ -66,7 +66,7 @@ public class ValueListFactory {
 		l_valueList.add(new MyValue("5"));
 		return l_valueList;
 	}
-	
+
 	/**
 	 * シングルトンインスタンス取得
 	 * @return m_single シングルトンインスタンス

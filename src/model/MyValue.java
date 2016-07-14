@@ -18,7 +18,7 @@ public class MyValue
 	 * 使用禁止有無
 	 */
 	private boolean m_unavailable;
-	
+
 	/**
 	 * コンストラクタ
 	 */
@@ -28,7 +28,7 @@ public class MyValue
 		this.m_used = false;
 		this.m_unavailable = false;
 	}
-	
+
 	/**
 	 * 使用中
 	 */
@@ -50,7 +50,7 @@ public class MyValue
 	{
 		this.m_unavailable = true;
 	}
-	
+
 	/**
 	 * 値取得
 	 */
@@ -72,7 +72,7 @@ public class MyValue
 	{
 		return this.m_unavailable;
 	}
-	
+
 	public boolean equals( MyValue i_value )
 	{
 		if ( this.m_value != i_value.m_value )
@@ -81,12 +81,12 @@ public class MyValue
 		}
 		return true;
 	}
-	
+
 	public String toString()
 	{
 		return this.m_value;
 	}
-	
+
 	public MyValue clone()
 	{
 		MyValue l_rValue = new MyValue( this.m_value );
