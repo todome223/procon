@@ -20,16 +20,6 @@ public class ValueList
 	{
 		this.m_list = new ArrayList<MyValue>();
 	}
-
-	/**
-	 * 引数番目の値を使用する
-	 * @param i_num 引数
-	 */
-	public MyValue useValue( int i_num )
-	{
-		m_list.get(i_num).used();
-		return m_list.get(i_num);
-	}
 	
 	/**
 	 * 入力と同様の値を持つリストの要素を使用禁止に変更
@@ -62,27 +52,6 @@ public class ValueList
 	public int size()
 	{
 		return this.m_list.size();
-	}
-	
-	/**
-	 * 値取得
-	 * @param i_num 添え字番号
-	 * @return 値
-	 */
-	public MyValue front()
-	{
-		if ( null != this.m_list.get(0) )
-		{
-			return this.m_list.get(0);
-		}
-		return null;
-	}
-	
-	public void changeTop()
-	{
-		MyValue l_temp = this.m_list.get(0);
-		this.m_list.remove(0);
-		this.m_list.add(l_temp);
 	}
 	
 	public void change( int i_index, MyValue i_value )
@@ -129,5 +98,38 @@ public class ValueList
 			l_rList.add( this.m_list.get(i).clone() );
 		}
 		return l_rList;
+	}
+	
+	public void used( int i_index )
+	{
+		MyValue l_value = this.m_list.get(i_index);
+		l_value.used();
+	}
+	
+	public boolean isAllUsed()
+	{
+		for( int i = 0; i < this.m_list.size(); ++i )
+		{
+			MyValue l_value = this.m_list.get(i);
+			if ( !l_value.isUsed() )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public void refresh()
+	{
+		for( int i = 0; i < this.m_list.size(); ++i )
+		{
+			MyValue l_value = this.m_list.get(i);
+			l_value.notUsed();
+		}
+	}
+	
+	public void clear()
+	{
+		this.m_list.clear();
 	}
 }

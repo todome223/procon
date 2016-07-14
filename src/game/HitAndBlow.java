@@ -1,11 +1,8 @@
 package game;
 
-import java.io.IOException;
-
-import model.MySituation;
-import model.ValueList;
 import controller.GameManager;
 import controller.GameReader;
+import controller.GameWriter;
 
 /**
  * ゲームクラス
@@ -23,7 +20,7 @@ public class HitAndBlow {
 	}
 	
 	private static void plan_b()
-	{
+	{	
 		// ゲーム開始に伴う初回判定フラグ
 		boolean l_isFirstTime = true;
 		// ゲーム管理インスタンスの宣言
@@ -33,7 +30,7 @@ public class HitAndBlow {
 		// 初期入力待ち
 		GameReader.readLine();
 		// 初期表示
-		System.out.println(l_manager.getAnserList());
+		GameWriter.writeLine( l_manager.printAnserList() );
 		// ループ
 		while( true )
 		{
@@ -61,13 +58,25 @@ public class HitAndBlow {
 					// 状況内容を確認
 					if ( l_manager.situationIsChanged() )
 					{
-						
-						//System.out.println("hc : " + l_manager.hitIsChanged() );
 						// 変化内容を確認
 						switch( l_manager.hitIsChanged() )
 						{
 						case 0:
 							// ヒット数変化なし
+							switch( l_manager.blowIsChanged() )
+							{
+							case 0:
+								// ブロウ数変化なし
+								break;
+							case 1:
+								// ブロウ数増加
+								l_manager.blowPlus();
+								break;
+							case -1:
+								// ブロウ数減少
+								l_manager.blowMinus();
+								break;
+							}
 							break;
 						case 1:
 							// ヒット数増加
@@ -76,20 +85,6 @@ public class HitAndBlow {
 						case -1:
 							// ヒット数減少
 							l_manager.hitMinus();
-							break;
-						}
-						switch( l_manager.blowIsChanged() )
-						{
-						case 0:
-							// ブロウ数変化なし
-							break;
-						case 1:
-							// ブロウ数増加
-							//l_manager.blowPlus();
-							break;
-						case -1:
-							// ブロウ数減少
-							//l_manager.blowMinus();
 							break;
 						}
 					}
@@ -101,11 +96,10 @@ public class HitAndBlow {
 				}
 				// 回答更新
 				l_manager.changeNumber();
-				System.out.println( l_manager.getAnserList() );
+				GameWriter.writeLine( l_manager.printAnserList() );
 			}
 			
 		}
-		
-		// 一桁目の文字の変更メソッド
+		GameWriter.outputCount();
 	}
 }
