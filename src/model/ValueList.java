@@ -12,7 +12,7 @@ public class ValueList
 	 * 値リスト
 	 */
 	private ArrayList<MyValue> m_list;
-	
+
 	/**
 	 * コンストラクタ
 	 */
@@ -20,7 +20,7 @@ public class ValueList
 	{
 		this.m_list = new ArrayList<MyValue>();
 	}
-	
+
 	/**
 	 * 入力と同様の値を持つリストの要素を使用禁止に変更
 	 * @param i_value 入力値
@@ -36,7 +36,7 @@ public class ValueList
 			}
 		}
 	}
-	
+
 	/**
 	 * 値追加
 	 * @param i_value 値
@@ -45,7 +45,7 @@ public class ValueList
 	{
 		this.m_list.add(i_value);
 	}
-	
+
 	/**
 	 * サイズ確認
 	 */
@@ -53,12 +53,12 @@ public class ValueList
 	{
 		return this.m_list.size();
 	}
-	
+
 	public void change( int i_index, MyValue i_value )
 	{
 		this.m_list.set(i_index, i_value);
 	}
-	
+
 	public MyValue get( int i_index )
 	{
 		if ( this.m_list.size() > i_index )
@@ -67,7 +67,7 @@ public class ValueList
 		}
 		return null;
 	}
-	
+
 	public boolean hasValue( MyValue i_value )
 	{
 		for ( int i = 0; i < this.m_list.size(); ++i )
@@ -79,7 +79,7 @@ public class ValueList
 		}
 		return false;
 	}
-	
+
 	public String toString()
 	{
 		String l_rString = new String("");
@@ -89,7 +89,7 @@ public class ValueList
 		}
 		return l_rString;
 	}
-	
+
 	public ValueList clone()
 	{
 		ValueList l_rList = new ValueList();
@@ -99,13 +99,13 @@ public class ValueList
 		}
 		return l_rList;
 	}
-	
+
 	public void used( int i_index )
 	{
 		MyValue l_value = this.m_list.get(i_index);
 		l_value.used();
 	}
-	
+
 	public boolean isAllUsed()
 	{
 		for( int i = 0; i < this.m_list.size(); ++i )
@@ -118,7 +118,7 @@ public class ValueList
 		}
 		return true;
 	}
-	
+
 	public void refresh()
 	{
 		for( int i = 0; i < this.m_list.size(); ++i )
@@ -127,7 +127,7 @@ public class ValueList
 			l_value.notUsed();
 		}
 	}
-	
+
 	public void clear()
 	{
 		this.m_list.clear();
