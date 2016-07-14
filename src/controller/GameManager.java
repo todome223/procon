@@ -129,6 +129,9 @@ public class GameManager {
 		m_valueList.changeUnavailableFromValue(i_value);
 	}
 	
+	/**
+	 * 回答リスト更新
+	 */
 	public void changeNumber()
 	{	
 		// 確認番号がすでに確認リストの最後尾に至っているか
@@ -177,6 +180,10 @@ public class GameManager {
 		}
 	}
 	
+	/**
+	 * 使用禁止値取得
+	 * @return 使用禁止値
+	 */
 	private MyValue getUnavailable()
 	{
 		for ( int i = 0; i < this.m_valueList.size(); ++i )
@@ -189,6 +196,11 @@ public class GameManager {
 		return null;
 	}
 	
+	/**
+	 * ゲーム状況変化有無確認
+	 * @return true 変化あり
+	 * @return false 変化なし
+	 */
 	public boolean situationIsChanged()
 	{
 		if ( !this.m_beforeSituation.equals( this.m_situation ) )
@@ -197,7 +209,13 @@ public class GameManager {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * ヒット数増減確認
+	 * @return 1 ヒット数が前回より増加
+	 * @return -1 ヒット数が前回より減少
+	 * @return 0 変化なし
+	 */
 	public int hitIsChanged()
 	{
 		if ( this.m_beforeSituation.equalsHit( this.m_situation ) < 0 )
@@ -213,6 +231,12 @@ public class GameManager {
 		return 0;
 	}
 	
+	/**
+	 * ブロウ数増減確認
+	 * @return 1 ブロウ数が前回より増加
+	 * @return -1 ブロウ数が前回より減少
+	 * @return 0 変化なし
+	 */
 	public int blowIsChanged()
 	{
 		if ( this.m_beforeSituation.equalsBlow( this.m_situation ) < 0 )
@@ -228,9 +252,11 @@ public class GameManager {
 		return 0;
 	}
 	
+	/**
+	 * ヒット数増加時の処理
+	 */
 	public void hitPlus()
 	{
-		// ヒット数増加時
 		++this.m_anserNumber;
 		this.m_checkNumber = 0;
 		this.m_changeMode = 1;
@@ -238,9 +264,11 @@ public class GameManager {
 		this.m_checkedList.clear();
 	}
 	
+	/**
+	 * ヒット数減少時の処理
+	 */
 	public void hitMinus()
 	{
-		// ヒット数減少時
 		this.m_anserList = this.m_anserTempList.clone();
 		++this.m_anserNumber;
 		this.m_checkNumber = 0;
@@ -250,25 +278,21 @@ public class GameManager {
 		this.m_checkedList.clear();
 	}
 	
+	/**
+	 * ブロウ数増加時の処理
+	 */
 	public void blowPlus()
 	{
-		// ブロウ数増加
-		
 	}
 	
+	/**
+	 * ブロウ数減少時の処理
+	 */
 	public void blowMinus()
 	{
-		// ブロウ数減少
 		MyValue l_check = this.m_anserList.get(this.m_anserNumber);
 		this.m_valueList.changeUnavailableFromValue(l_check);
 		this.m_situation = this.m_beforeSituation.clone();
-	}
-	
-	public void gameContinue()
-	{
-		// 変化なし
-		MyValue l_check = this.m_anserList.get(this.m_anserNumber);
-		this.m_valueList.changeUnavailableFromValue(l_check);
 	}
 	
 	/**

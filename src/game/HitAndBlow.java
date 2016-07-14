@@ -14,12 +14,15 @@ public class HitAndBlow {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		plan_b();
+		// HitAndBlowゲームのメソッド呼び出し
+		doGame();
 		
 	}
 	
-	private static void plan_b()
+	/**
+	 * HitAndBlowゲームメソッド
+	 */
+	private static void doGame()
 	{	
 		// ゲーム開始に伴う初回判定フラグ
 		boolean l_isFirstTime = true;
@@ -90,7 +93,6 @@ public class HitAndBlow {
 					}
 					else
 					{
-						//l_manager.gameContinue();
 						// 変化なし
 					}
 				}
